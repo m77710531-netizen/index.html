@@ -3,155 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutsch Encyclopedia - Mehdi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>بحر اللغة الألمانية</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); min-height: 100vh; }
-        .word-card { background: white; border-radius: 20px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid rgba(0,0,0,0.05); }
-        .word-card:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border-right: 8px solid #4f46e5; }
-        .category-pill { cursor: pointer; transition: all 0.2s; border: 2px solid transparent; }
-        .category-pill.active { background-color: #4f46e5; color: white; transform: scale(1.1); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4); }
+        body { font-family: sans-serif; background-color: #f0f2f5; text-align: center; padding: 20px; }
+        .main-box { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        h1 { color: #d9534f; }
+        .search-container { margin: 20px 0; display: flex; gap: 5px; }
+        input { padding: 12px; flex: 1; border: 2px solid #ddd; border-radius: 8px; outline: none; }
+        button { padding: 12px 20px; background-color: #333; color: white; border: none; border-radius: 8px; cursor: pointer; }
+        .card { background: #fff; border-right: 5px solid #d9534f; padding: 15px; margin-top: 20px; text-align: left; direction: ltr; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .loading { display: none; color: #666; margin-top: 10px; }
     </style>
 </head>
-<body class="p-4 pb-20">
-    <div class="max-w-6xl mx-auto">
-        <header class="text-center py-10">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-2">🇩🇪 موسوعة مهدي الألمانية الكبرى</h1>
-            <p class="text-indigo-600 text-lg font-medium">كل ما تحتاجه للنجاح في B1/B2 في مكان واحد</p>
-        </header>
+<body>
 
-        <div class="bg-white p-6 rounded-3xl shadow-xl mb-8">
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="relative flex-1">
-                    <input type="text" id="mainSearch" onkeyup="globalSearch()" placeholder="ابحث عن أي فعل، اسم، صفة، أو حرف جر..." 
-                           class="w-full p-5 rounded-2xl bg-gray-50 border-2 border-transparent focus:border-indigo-500 focus:bg-white outline-none transition-all text-xl pr-12">
-                    <i class="fas fa-search absolute left-4 top-6 text-indigo-400"></i>
-                </div>
-                <div class="flex items-center justify-center px-6 bg-indigo-50 rounded-2xl">
-                    <span class="text-indigo-700 font-bold text-lg" id="wordCount">0 كلمة</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-wrap justify-center gap-3 mb-10" id="filterBar">
-            <button onclick="setFilter('all')" id="f-all" class="category-pill active bg-white px-6 py-3 rounded-2xl font-bold shadow-sm">الكل</button>
-            <button onclick="setFilter('verb')" id="f-verb" class="category-pill bg-white px-6 py-3 rounded-2xl font-bold shadow-sm">الأفعال (Verben)</button>
-            <button onclick="setFilter('noun')" id="f-noun" class="category-pill bg-white px-6 py-3 rounded-2xl font-bold shadow-sm">الأسماء (Nomen)</button>
-            <button onclick="setFilter('adj')" id="f-adj" class="category-pill bg-white px-6 py-3 rounded-2xl font-bold shadow-sm">الصفات (Adjektive)</button>
-            <button onclick="setFilter('prep')" id="f-prep" class="category-pill bg-white px-6 py-3 rounded-2xl font-bold shadow-sm">حروف الجر (Präp)</button>
-            <button onclick="openQuiz()" class="category-pill bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-2xl font-bold shadow-lg">إطلاق الاختبار 🚀</button>
-        </div>
-
-        <div id="encyclopediaGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
-
-        <div id="quizModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4">
-            <div class="bg-white w-full max-w-xl rounded-3xl p-8 shadow-2xl relative">
-                <button onclick="closeQuiz()" class="absolute top-4 left-4 text-gray-400 hover:text-black text-2xl">&times;</button>
-                <div class="text-center">
-                    <div class="inline-block px-4 py-1 bg-indigo-100 text-indigo-700 rounded-full font-bold mb-4">اختبار المستوى</div>
-                    <div id="qWord" class="text-5xl font-black text-indigo-900 mb-8 italic">---</div>
-                    <div id="qOptions" class="grid gap-4"></div>
-                    <div id="qFeedback" class="mt-6 font-bold text-xl h-8"></div>
-                </div>
-            </div>
-        </div>
+<div class="main-box">
+    <h1>🇩🇪 بحر الألمانية</h1>
+    <div class="search-container">
+        <input type="text" id="wordInput" placeholder="اكتب كلمة (مثلاً: Haus)...">
+        <button onclick="startSearch()">بحث</button>
     </div>
+    <div id="loading" class="loading">جاري البحث... 🌊</div>
+    <div id="resultsArea"></div>
+</div>
 
-    <script>
-        // هنا تقدر تزيد حتى لـ 10000 كلمة بنفس الطريقة
-        const bigData = [
-            // Verben (B1/B2/C1)
-            {de: "berücksichtigen", ar: "يأخذ بعين الاعتبار", cat: "verb"}, {de: "beabsichtigen", ar: "ينوي / يعزم", cat: "verb"},
-            {de: "beeinträchtigen", ar: "يؤثر سلباً / يضر", cat: "verb"}, {de: "gewährleisten", ar: "يضمن / يكفل", cat: "verb"},
-            {de: "stattfinden", ar: "يحدث / يقام", cat: "verb"}, {de: "teilnehmen", ar: "يشارك", cat: "verb"},
-            {de: "unterstützen", ar: "يدعم", cat: "verb"}, {de: "vermeiden", ar: "يتجنب", cat: "verb"},
-            // Nomen
-            {de: "die Voraussetzung", ar: "الشرط الأساسي", cat: "noun"}, {de: "die Verantwortung", ar: "المسؤولية", cat: "noun"},
-            {de: "der Zusammenhang", ar: "السياق / العلاقة", cat: "noun"}, {de: "die Herausforderung", ar: "التحدي", cat: "noun"},
-            {de: "die Erfahrung", ar: "الخبرة", cat: "noun"}, {de: "die Entscheidung", ar: "القرار", cat: "noun"},
-            // Adjektive
-            {de: "unverzichtbar", ar: "لا غنى عنه", cat: "adj"}, {de: "nachhaltig", ar: "مستدام", cat: "adj"},
-            {de: "zuverlässig", ar: "موثوق", cat: "adj"}, {de: "fleißig", ar: "مجتهد", cat: "adj"},
-            {de: "ausgezeichnet", ar: "ممتاز / رائع", cat: "adj"}, {de: "wesentlich", ar: "جوهري / أساسي", cat: "adj"},
-            // Prepositions
-            {de: "in Bezug auf", ar: "فيما يتعلق بـ", cat: "prep"}, {de: "trotz (+ Gen)", ar: "بالرغم من", cat: "prep"},
-            {de: "aufgrund (+ Gen)", ar: "بسبب / بناءً على", cat: "prep"}, {de: "während (+ Gen)", ar: "خلال", cat: "prep"}
-            // تقدر تزيد قد ما بغيتي هنا...
-        ];
+<script>
+    async function startSearch() {
+        const word = document.getElementById('wordInput').value;
+        const resultsArea = document.getElementById('resultsArea');
+        const loading = document.getElementById('loading');
 
-        let activeFilter = 'all';
+        if(!word) { alert("كتب شي كلمة!"); return; }
+        loading.style.display = 'block';
+        resultsArea.innerHTML = '';
 
-        function render(list) {
-            const grid = document.getElementById('encyclopediaGrid');
-            grid.innerHTML = list.map(i => `
-                <div class="word-card p-6 cursor-pointer group" onclick="speak('${i.de}')">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="text-xs font-black uppercase tracking-widest text-indigo-400">${i.cat}</span>
-                        <i class="fas fa-volume-up text-gray-200 group-hover:text-indigo-500 transition-colors"></i>
+        try {
+            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/de/${word}`);
+            const data = await response.json();
+
+            if (response.ok) {
+                const definition = data[0].meanings[0].definitions[0].definition;
+                resultsArea.innerHTML = `
+                    <div class="card">
+                        <h3 style="color:#d9534f">Bedeutung:</h3>
+                        <p>${definition}</p>
                     </div>
-                    <div class="text-2xl font-bold text-gray-800 mb-1 group-hover:text-indigo-600 transition-colors">${i.de}</div>
-                    <div class="text-gray-500 text-lg">${i.ar}</div>
-                </div>
-            `).join('');
-            document.getElementById('wordCount').innerText = `${list.length} كلمة`;
-        }
-
-        function globalSearch() {
-            const query = document.getElementById('mainSearch').value.toLowerCase();
-            const filtered = bigData.filter(i => 
-                (i.de.toLowerCase().includes(query) || i.ar.includes(query)) && 
-                (activeFilter === 'all' || i.cat === activeFilter)
-            );
-            render(filtered);
-        }
-
-        function setFilter(cat) {
-            activeFilter = cat;
-            document.querySelectorAll('.category-pill').forEach(b => b.classList.remove('active'));
-            document.getElementById(`f-${cat}`).classList.add('active');
-            globalSearch();
-        }
-
-        function speak(t) {
-            const u = new SpeechSynthesisUtterance(t); u.lang = 'de-DE';
-            speechSynthesis.speak(u);
-        }
-
-        // Quiz System Pro
-        function openQuiz() { 
-            document.getElementById('quizModal').classList.remove('hidden'); 
-            loadNextQ();
-        }
-        function closeQuiz() { document.getElementById('quizModal').classList.add('hidden'); }
-
-        function loadNextQ() {
-            const q = bigData[Math.floor(Math.random() * bigData.length)];
-            document.getElementById('qWord').innerText = q.de;
-            document.getElementById('qFeedback').innerText = "";
-            let opts = [q.ar];
-            while(opts.length < 4) {
-                let r = bigData[Math.floor(Math.random() * bigData.length)].ar;
-                if(!opts.includes(r)) opts.push(r);
-            }
-            opts.sort(() => Math.random() - 0.5);
-            document.getElementById('qOptions').innerHTML = opts.map(o => `
-                <button onclick="checkAnswer('${o}', '${q.ar}', '${q.de}')" class="w-full p-4 rounded-2xl border-2 border-indigo-50 hover:border-indigo-500 hover:bg-indigo-50 font-bold transition-all">${o}</button>
-            `).join('');
-        }
-
-        function checkAnswer(chosen, correct, de) {
-            if(chosen === correct) {
-                document.getElementById('qFeedback').innerHTML = "<span class='text-green-500'>✅ صحيح! نطق الكلمة...</span>";
-                speak(de); setTimeout(loadNextQ, 1500);
+                `;
             } else {
-                document.getElementById('qFeedback').innerHTML = `<span class='text-red-500'>❌ خطأ، المعنى هو: ${correct}</span>`;
+                resultsArea.innerHTML = `<p>مالقيناش هاد الكلمة، جرب كلمة أخرى.</p>`;
             }
+        } catch (error) {
+            resultsArea.innerHTML = `<p>وقع مشكل فالاتصال.</p>`;
         }
+        loading.style.display = 'none';
+    }
+</script>
 
-        render(bigData);
-    </script>
 </body>
 </html>
